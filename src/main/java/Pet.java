@@ -2,10 +2,10 @@ public class Pet {
     private String petType;
     private String petName;
 
-//    public Pet (String petType, String petName){
-//        this.petType = petType;
-//        this.petName = petName;
-//    }
+    public Pet (String petType, String petName){
+        this.petType = petType;
+        this.petName = petName;
+    }
 
     public String getPetType() {
         return petType;
@@ -25,9 +25,7 @@ public class Pet {
 
     @Override
     public String toString() {
-        return "Pet{" +
-                "petType='" + petType + '\'' +
-                ", petName='" + petName + '\'' +
-                '}';
+        return "pet type = '" + petType + '\'' +
+                ", pet name = '" + petName + '\'';
     }
 }
