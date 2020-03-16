@@ -16,22 +16,24 @@ public class PetsClinic {
         this.cardNumber = cardNumber;
     }
 
-    // 1 case:
-    public void addNewClient (){
-        cardNumber = arrayPetsClinicRegistration.size() + 1;
-//        PetsClinic petsClinic = new PetsClinic(1, new Client("Tatiana"), new Pet("cat", "Varya"));
-//        PetsClinic petsClinic1 = new PetsClinic(2, new Client("Daria"), new Pet("dog", "Dusya"));
-
-        PetsClinic petsClinic = new PetsClinic (cardNumber, new Client(readFromScreen("Enter full name of client:")),
-                new Pet(readFromScreen("Enter type of pet:"), readFromScreen("Enter  pet name:")));
-        arrayPetsClinicRegistration.add (petsClinic);
-        System.out.println("Client was added");
-    }
-
     public static String readFromScreen (String input) {
         Scanner scanner = new Scanner(System.in);
         System.out.println(input);
         return scanner.nextLine();
+    }
+
+    // 1 case:
+    public void addNewClient (){
+        cardNumber = arrayPetsClinicRegistration.size() + 1;
+        for (int i = 0; i < arrayPetsClinicRegistration.size(); i++){
+            if (arrayPetsClinicRegistration.get(i).getCardNumber() >= arrayPetsClinicRegistration.size()){
+                cardNumber = arrayPetsClinicRegistration.get(i).getCardNumber() + 1;
+            }
+        }
+        PetsClinic petsClinic = new PetsClinic (cardNumber, new Client(readFromScreen("Enter full name of client:")),
+                new Pet(readFromScreen("Enter type of pet:"), readFromScreen("Enter  pet name:")));
+        arrayPetsClinicRegistration.add (petsClinic);
+        System.out.println("Client was added");
     }
 
     // 2 case:
@@ -43,6 +45,7 @@ public class PetsClinic {
                 return;
             }
         }
+        System.out.println(findName + " is not found.");
     }
 
     // 3 case:
@@ -54,6 +57,7 @@ public class PetsClinic {
                 return;
             }
         }
+        System.out.println(findPetName + " is not found.");
     }
 
     // 4 case:
@@ -65,6 +69,7 @@ public class PetsClinic {
                 return;
             }
         }
+        System.out.println(findCardNumber + " is not found.");
     }
 
     // 5 case:
@@ -77,6 +82,7 @@ public class PetsClinic {
                 return;
             }
         }
+        System.out.println(deleteClientByName + " is not found.");
     }
 
     // 6 case:
@@ -90,6 +96,7 @@ public class PetsClinic {
                 return;
             }
         }
+        System.out.println(findName + " is not found.");
     }
 
     // 7 case:
@@ -103,6 +110,7 @@ public class PetsClinic {
                 return;
             }
         }
+        System.out.println(findPetName + " is not found.");
     }
 
     // 8 case:
