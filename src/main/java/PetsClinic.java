@@ -1,34 +1,30 @@
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.Map;
-import java.util.Scanner;
-import java.util.TreeMap;
+import java.util.*;
 
 public class PetsClinic {
-    Map <Integer, PetsClinic> petsClinicRegistration = new TreeMap<>();
+    List<PetsClinic> arrayPetsClinicRegistration = new ArrayList<>();
 
     private Client client;
     private Pet pet;
+    private int cardNumber;
 
     public PetsClinic (){
     }
 
-    public PetsClinic (Client client, Pet pet){
+    public PetsClinic (int cardNumber, Client client, Pet pet){
         this.client = client;
         this.pet = pet;
+        this.cardNumber = cardNumber;
     }
 
     // 1 case:
     public void addNewClient (){
-        int cardNumber = petsClinicRegistration.size();
-        PetsClinic petsClinic = new PetsClinic(new Client("Tatiana"), new Pet("cat", "Varya"));
-        PetsClinic petsClinic1 = new PetsClinic(new Client("Daria"), new Pet("dog", "Dusya"));
+        cardNumber = arrayPetsClinicRegistration.size() + 1;
+//        PetsClinic petsClinic = new PetsClinic(1, new Client("Tatiana"), new Pet("cat", "Varya"));
+//        PetsClinic petsClinic1 = new PetsClinic(2, new Client("Daria"), new Pet("dog", "Dusya"));
 
-//        PetsClinic petsClinic = new PetsClinic (new Client(readFromScreen("Enter full name of client:")),
-//                new Pet(readFromScreen("Enter type of pet:"), readFromScreen("Enter  pet name:")));
-        petsClinicRegistration.put(++cardNumber,petsClinic);
-        petsClinicRegistration.put(++cardNumber, petsClinic1);
+        PetsClinic petsClinic = new PetsClinic (cardNumber, new Client(readFromScreen("Enter full name of client:")),
+                new Pet(readFromScreen("Enter type of pet:"), readFromScreen("Enter  pet name:")));
+        arrayPetsClinicRegistration.add (petsClinic);
         System.out.println("Client was added");
     }
 
@@ -41,36 +37,97 @@ public class PetsClinic {
     // 2 case:
     public void findClientByName (){
         String findName = readFromScreen("Enter the name you are looking for:");
-        for (Map.Entry e : petsClinicRegistration.entrySet()) {
-            if (findName.equals(e.getValue())) {
-                System.out.println("Find " + findName + client.getFullName());
-            }
-            else {
-                System.out.println("Not Found");
+        for (int i = 0; i < arrayPetsClinicRegistration.size(); i++) {
+            if (findName.equals(arrayPetsClinicRegistration.get(i).getClient().getFullName())) {
+                System.out.println("Find " + arrayPetsClinicRegistration.get(i));
+                return;
             }
         }
     }
 
     // 3 case:
     public void findClientByPetName (){
-
+        String findPetName = readFromScreen("Enter the pet name you are looking for:");
+        for (int i = 0; i < arrayPetsClinicRegistration.size(); i++) {
+            if (findPetName.equals(arrayPetsClinicRegistration.get(i).getPet().getPetName())) {
+                System.out.println("Find " + arrayPetsClinicRegistration.get(i));
+                return;
+            }
+        }
     }
 
     // 4 case:
     public void findClientByCardNumber (){
+        int findCardNumber = Integer.parseInt(readFromScreen("Enter the card number you are looking for:"));
+        for (int i = 0; i < arrayPetsClinicRegistration.size(); i++) {
+            if (findCardNumber == (arrayPetsClinicRegistration.get(i).getCardNumber())) {
+                System.out.println("Find " + arrayPetsClinicRegistration.get(i));
+                return;
+            }
+        }
+    }
 
+    // 5 case:
+    public void deleteClient (){
+        String deleteClientByName = readFromScreen("Enter name of client which you want to delete:");
+        for (int i = 0; i < arrayPetsClinicRegistration.size(); i++) {
+            if (deleteClientByName.equals(arrayPetsClinicRegistration.get(i).getClient().getFullName())) {
+                arrayPetsClinicRegistration.remove(i);
+                System.out.println("Client " + deleteClientByName + " was remove from Clinic. ");
+                return;
+            }
+        }
+    }
+
+    // 6 case:
+    public void renameClient (){
+        String findName = readFromScreen("Enter the name you are looking for rename:");
+        for (int i = 0; i < arrayPetsClinicRegistration.size(); i++) {
+            if (findName.equals(arrayPetsClinicRegistration.get(i).getClient().getFullName())) {
+                System.out.println("Successful find. " + arrayPetsClinicRegistration.get(i));
+                arrayPetsClinicRegistration.get(i).client.setFullName(readFromScreen("Enter new name for client:"));
+                System.out.println("Successful rename " + arrayPetsClinicRegistration.get(i));
+                return;
+            }
+        }
+    }
+
+    // 7 case:
+    public void renamePet (){
+        String findPetName = readFromScreen("Enter the pet name you are looking for rename:");
+        for (int i = 0; i < arrayPetsClinicRegistration.size(); i++) {
+            if (findPetName.equals(arrayPetsClinicRegistration.get(i).getPet().getPetName())) {
+                System.out.println("Successful find. " + arrayPetsClinicRegistration.get(i));
+                arrayPetsClinicRegistration.get(i).pet.setPetName(readFromScreen("Enter new pet name:"));
+                System.out.println("Successful rename pet " + arrayPetsClinicRegistration.get(i));
+                return;
+            }
+        }
     }
 
     // 8 case:
     public void viewAllClients (){
-        for (Map.Entry e : petsClinicRegistration.entrySet()) {
-            System.out.println("Card number: " + e.getKey()+". \n"+ e.getValue());
+        for (int i = 0; i < arrayPetsClinicRegistration.size(); i++) {
+            System.out.println(arrayPetsClinicRegistration.get(i));
         }
+    }
+
+    public Client getClient() {
+        return client;
+    }
+
+    public Pet getPet() {
+        return pet;
+    }
+
+    public int getCardNumber() {
+        return cardNumber;
     }
 
     @Override
     public String toString() {
-        return "Client's name is '" + client.getFullName() + '\'' +
+        return "Card number: " + getCardNumber() + ". " +
+                "Client's name is '" + client.getFullName() + '\'' +
                 ". Pet: " + "pet type = '" +  pet.getPetType() + '\'' +
                 ", pet name = '" + pet.getPetName() + '\'';
     }

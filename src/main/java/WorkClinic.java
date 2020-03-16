@@ -15,7 +15,7 @@ public class WorkClinic {
                     "1 - add new client \n" +
                     "2 - find a client by full name \n" +
                     "3 - find a client by pet name \n" +
-                    "4 - fins a client by card number \n" +
+                    "4 - find a client by card number \n" +
                     "5 - delete a client \n" +
                     "6 - rename a client \n" +
                     "7 - rename a pet \n" +
@@ -28,6 +28,16 @@ public class WorkClinic {
                 case 1: petsClinic.addNewClient();
                     break;
                 case 2: petsClinic.findClientByName();
+                    break;
+                case 3: petsClinic.findClientByPetName();
+                    break;
+                case 4: petsClinic.findClientByCardNumber();
+                    break;
+                case 5: petsClinic.deleteClient();
+                    break;
+                case 6 : petsClinic.renameClient();
+                    break;
+                case 7 : petsClinic.renamePet();
                     break;
                 case 8: petsClinic.viewAllClients();
                     break;
