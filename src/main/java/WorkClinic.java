@@ -12,7 +12,7 @@ public class WorkClinic {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         PetsClinic petsClinic = new PetsClinic();
         String exitFromClinic = "no";
-       // petsClinic.readFromFile();
+        //petsClinic.readFromFile();
 
         while (exitFromClinic.equals("no")) {
             System.out.println("Choose the operation. Enter the appropriate number: \n" +
@@ -47,6 +47,13 @@ public class WorkClinic {
                     break;
                 case 9: exitFromClinic = "yes";
                     petsClinic.writeInFile();
+                    break;
+
+                    //test write in file
+                case 10: petsClinic.writeInFile();
+                    break;
+                    // test add new client
+                case 11: petsClinic.addTestClient();
                     break;
             }
         }

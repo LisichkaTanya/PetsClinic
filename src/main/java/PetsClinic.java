@@ -2,7 +2,7 @@ import java.io.*;
 import java.util.*;
 
 public class PetsClinic implements Serializable {
-    List<PetsClinic> arrayPetsClinicRegistration = new ArrayList<>();
+    List<PetsClinic> arrayPetsClinicRegistration;// = new ArrayList<>();
 
     private Client client;
     private Pet pet;
@@ -142,7 +142,11 @@ public class PetsClinic implements Serializable {
         try {
             FileInputStream fis = new FileInputStream("RegistrationClientsOfPetClinic.bin");
             ObjectInputStream ois = new ObjectInputStream(fis);
-            arrayPetsClinicRegistration = (List<PetsClinic>) ois.readObject();
+//            int clientsCount = ois.readInt();
+//            for (int i =0; i < clientsCount; i++){
+//                List<PetsClinic> array = (ArrayList)ois.readObject();
+//            }
+            arrayPetsClinicRegistration = (ArrayList<PetsClinic>) ois.readObject();
             ois.close();
         }
 
@@ -166,11 +170,32 @@ public class PetsClinic implements Serializable {
         return cardNumber;
     }
 
+//    @Override
+//    public String toString() {
+//        return "Card number: " + getCardNumber() + ". " +
+//                "Client's name is '" + client.getFullName() + '\'' +
+//                ". Pet: " + "pet type = '" +  pet.getPetType() + '\'' +
+//                ", pet name = '" + pet.getPetName() + '\'';
+//    }
+
+
     @Override
     public String toString() {
         return "Card number: " + getCardNumber() + ". " +
-                "Client's name is '" + client.getFullName() + '\'' +
-                ". Pet: " + "pet type = '" +  pet.getPetType() + '\'' +
-                ", pet name = '" + pet.getPetName() + '\'';
+                "Client's name is '" + client + '\'' +
+                ". Pet: " + pet +
+                " array = " + arrayPetsClinicRegistration;
+    }
+
+    // test
+    public void addTestClient (){
+        Client client1 = new Client("Tatiana");
+        Pet pet1 = new Pet("cat", "Varya");
+        PetsClinic petsClinic1 = new PetsClinic(1, client1, pet1);
+        PetsClinic petsClinic2 = new PetsClinic(2, new Client("Daria"), new Pet("hamster", "Pushok"));
+        PetsClinic petsClinic3 = new PetsClinic(3, new Client("Galina"), new Pet("dog", "Dusya"));
+        arrayPetsClinicRegistration.add(petsClinic1);
+        arrayPetsClinicRegistration.add(petsClinic2);
+        arrayPetsClinicRegistration.add(petsClinic3);
     }
 }
