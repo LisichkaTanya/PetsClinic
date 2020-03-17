@@ -1,16 +1,20 @@
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 
+/**
+ * @author LisichkaTanya
+ * @since 12.03.2020
+ * This class include method main, point of enter program
+ * Here are: start work on the clinic; choose operations to do
+ */
 public class WorkClinic {
-    static  String exitClinic = "no";
-
     public static void main(String[] args) throws IOException {
+
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         PetsClinic petsClinic = new PetsClinic();
-        WorkClinic workClinic = new WorkClinic();
+        String exitFromClinic = "no";
+       // petsClinic.readFromFile();
 
-        while (exitClinic.equals("no")) {
+        while (exitFromClinic.equals("no")) {
             System.out.println("Choose the operation. Enter the appropriate number: \n" +
                     "1 - add new client \n" +
                     "2 - find a client by full name \n" +
@@ -41,14 +45,10 @@ public class WorkClinic {
                     break;
                 case 8: petsClinic.viewAllClients();
                     break;
-                case 9: workClinic.exitFromClinic("yes");
+                case 9: exitFromClinic = "yes";
+                    petsClinic.writeInFile();
                     break;
             }
         }
     }
-    // 9 case:
-    public void exitFromClinic (String exitClinic) {
-        this.exitClinic = exitClinic;
-    }
-
 }

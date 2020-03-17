@@ -1,6 +1,7 @@
+import java.io.*;
 import java.util.*;
 
-public class PetsClinic {
+public class PetsClinic implements Serializable {
     List<PetsClinic> arrayPetsClinicRegistration = new ArrayList<>();
 
     private Client client;
@@ -117,6 +118,39 @@ public class PetsClinic {
     public void viewAllClients (){
         for (int i = 0; i < arrayPetsClinicRegistration.size(); i++) {
             System.out.println(arrayPetsClinicRegistration.get(i));
+        }
+    }
+
+    // 9 case: Write registration list in file
+    public void writeInFile () throws IOException {
+        try {
+            FileOutputStream fos = new FileOutputStream("RegistrationClientsOfPetClinic.bin");
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+            //oos.writeInt(arrayPetsClinicRegistration.size());
+            for (PetsClinic petsClinic :arrayPetsClinicRegistration) {
+                oos.writeObject(petsClinic);
+            }
+            fos.close();
+        }
+        catch (IOException e){
+            e.printStackTrace();
+        }
+    }
+
+    // Read registration list from file
+    public void readFromFile () throws IOException {
+        try {
+            FileInputStream fis = new FileInputStream("RegistrationClientsOfPetClinic.bin");
+            ObjectInputStream ois = new ObjectInputStream(fis);
+            arrayPetsClinicRegistration = (List<PetsClinic>) ois.readObject();
+            ois.close();
+        }
+
+        catch (IOException e){
+            e.printStackTrace();
+        }
+        catch (ClassNotFoundException e) {
+            e.printStackTrace();
         }
     }
 
