@@ -1,23 +1,45 @@
 import java.io.Serializable;
 
 public class Client implements Serializable {
-    private String fullName;
+    private Person person;
+    private Pet pet;
+    private int cardNumber;
 
-    public Client (String fullName){
-        this.fullName = fullName;
+
+    public Client (int cardNumber, Person person, Pet pet) {
+        this.person = person;
+        this.pet = pet;
+        this.cardNumber = cardNumber;
     }
 
-    public String getFullName() {
-        return fullName;
+    public Person getPerson() {
+        return person;
     }
 
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
+    public Pet getPet() {
+        return pet;
+    }
+
+    public int getCardNumber(){
+        return cardNumber;
+    }
+
+    public void setPerson(Person person) {
+        this.person = person;
+    }
+
+    public void setPet(Pet pet) {
+        this.pet = pet;
+    }
+
+    public void setCardNumber(int cardNumber) {
+        this.cardNumber = cardNumber;
     }
 
     @Override
     public String toString() {
-        return "Client's name is '" +
-                fullName + '\'';
+        return "Card number: " + getCardNumber() + ". " +
+                "Client's name is '" + person + '\'' +
+                ". Pet: " + pet;
     }
 }

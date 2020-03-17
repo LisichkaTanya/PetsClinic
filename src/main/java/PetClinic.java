@@ -1,22 +1,11 @@
 import java.io.*;
 import java.util.*;
 
-public class PetsClinic implements Serializable {
-    List<PetsClinic> arrayPetsClinicRegistration;// = new ArrayList<>();
+public class PetClinic implements Serializable {
 
-    private Client client;
-    private Pet pet;
-    private int cardNumber;
+    List<Client> arrayPetsClinicRegistration = new ArrayList<>();
 
-    public PetsClinic (){
-    }
-
-    public PetsClinic (int cardNumber, Client client, Pet pet){
-        this.client = client;
-        this.pet = pet;
-        this.cardNumber = cardNumber;
-    }
-
+    // This method read text from screen
     public static String readFromScreen (String input) {
         Scanner scanner = new Scanner(System.in);
         System.out.println(input);
@@ -25,15 +14,15 @@ public class PetsClinic implements Serializable {
 
     // 1 case:
     public void addNewClient (){
-        cardNumber = arrayPetsClinicRegistration.size() + 1;
+        int cardNumber = arrayPetsClinicRegistration.size() + 1;
         for (int i = 0; i < arrayPetsClinicRegistration.size(); i++){
             if (arrayPetsClinicRegistration.get(i).getCardNumber() >= arrayPetsClinicRegistration.size()){
                 cardNumber = arrayPetsClinicRegistration.get(i).getCardNumber() + 1;
             }
         }
-        PetsClinic petsClinic = new PetsClinic (cardNumber, new Client(readFromScreen("Enter full name of client:")),
+        Client client = new Client (cardNumber, new Person(readFromScreen("Enter full name of client:")),
                 new Pet(readFromScreen("Enter type of pet:"), readFromScreen("Enter  pet name:")));
-        arrayPetsClinicRegistration.add (petsClinic);
+        arrayPetsClinicRegistration.add (client);
         System.out.println("Client was added");
     }
 
@@ -41,7 +30,7 @@ public class PetsClinic implements Serializable {
     public void findClientByName (){
         String findName = readFromScreen("Enter the name you are looking for:");
         for (int i = 0; i < arrayPetsClinicRegistration.size(); i++) {
-            if (findName.equals(arrayPetsClinicRegistration.get(i).getClient().getFullName())) {
+            if (findName.equals(arrayPetsClinicRegistration.get(i).getPerson().getFullName())) {
                 System.out.println("Find " + arrayPetsClinicRegistration.get(i));
                 return;
             }
@@ -77,7 +66,7 @@ public class PetsClinic implements Serializable {
     public void deleteClient (){
         String deleteClientByName = readFromScreen("Enter name of client which you want to delete:");
         for (int i = 0; i < arrayPetsClinicRegistration.size(); i++) {
-            if (deleteClientByName.equals(arrayPetsClinicRegistration.get(i).getClient().getFullName())) {
+            if (deleteClientByName.equals(arrayPetsClinicRegistration.get(i).getPerson().getFullName())) {
                 arrayPetsClinicRegistration.remove(i);
                 System.out.println("Client " + deleteClientByName + " was remove from Clinic. ");
                 return;
@@ -90,9 +79,9 @@ public class PetsClinic implements Serializable {
     public void renameClient (){
         String findName = readFromScreen("Enter the name you are looking for rename:");
         for (int i = 0; i < arrayPetsClinicRegistration.size(); i++) {
-            if (findName.equals(arrayPetsClinicRegistration.get(i).getClient().getFullName())) {
+            if (findName.equals(arrayPetsClinicRegistration.get(i).getPerson().getFullName())) {
                 System.out.println("Successful find. " + arrayPetsClinicRegistration.get(i));
-                arrayPetsClinicRegistration.get(i).client.setFullName(readFromScreen("Enter new name for client:"));
+                arrayPetsClinicRegistration.get(i).getPerson().setFullName(readFromScreen("Enter new name for client:"));
                 System.out.println("Successful rename " + arrayPetsClinicRegistration.get(i));
                 return;
             }
@@ -106,7 +95,7 @@ public class PetsClinic implements Serializable {
         for (int i = 0; i < arrayPetsClinicRegistration.size(); i++) {
             if (findPetName.equals(arrayPetsClinicRegistration.get(i).getPet().getPetName())) {
                 System.out.println("Successful find. " + arrayPetsClinicRegistration.get(i));
-                arrayPetsClinicRegistration.get(i).pet.setPetName(readFromScreen("Enter new pet name:"));
+                arrayPetsClinicRegistration.get(i).getPet().setPetName(readFromScreen("Enter new pet name:"));
                 System.out.println("Successful rename pet " + arrayPetsClinicRegistration.get(i));
                 return;
             }
@@ -127,8 +116,8 @@ public class PetsClinic implements Serializable {
             FileOutputStream fos = new FileOutputStream("RegistrationClientsOfPetClinic.bin");
             ObjectOutputStream oos = new ObjectOutputStream(fos);
             //oos.writeInt(arrayPetsClinicRegistration.size());
-            for (PetsClinic petsClinic :arrayPetsClinicRegistration) {
-                oos.writeObject(petsClinic);
+            for (Client client :arrayPetsClinicRegistration) {
+                oos.writeObject(client);
             }
             fos.close();
         }
@@ -146,7 +135,7 @@ public class PetsClinic implements Serializable {
 //            for (int i =0; i < clientsCount; i++){
 //                List<PetsClinic> array = (ArrayList)ois.readObject();
 //            }
-            arrayPetsClinicRegistration = (ArrayList<PetsClinic>) ois.readObject();
+            arrayPetsClinicRegistration = (ArrayList<Client>) ois.readObject();
             ois.close();
         }
 
@@ -158,44 +147,20 @@ public class PetsClinic implements Serializable {
         }
     }
 
-    public Client getClient() {
-        return client;
-    }
-
-    public Pet getPet() {
-        return pet;
-    }
-
-    public int getCardNumber() {
-        return cardNumber;
-    }
-
-//    @Override
-//    public String toString() {
-//        return "Card number: " + getCardNumber() + ". " +
-//                "Client's name is '" + client.getFullName() + '\'' +
-//                ". Pet: " + "pet type = '" +  pet.getPetType() + '\'' +
-//                ", pet name = '" + pet.getPetName() + '\'';
-//    }
-
-
     @Override
     public String toString() {
-        return "Card number: " + getCardNumber() + ". " +
-                "Client's name is '" + client + '\'' +
-                ". Pet: " + pet +
-                " array = " + arrayPetsClinicRegistration;
+        return "PetClinic{" +
+                "arrayPetsClinicRegistration=" + arrayPetsClinicRegistration +
+                '}';
     }
 
     // test
     public void addTestClient (){
-        Client client1 = new Client("Tatiana");
-        Pet pet1 = new Pet("cat", "Varya");
-        PetsClinic petsClinic1 = new PetsClinic(1, client1, pet1);
-        PetsClinic petsClinic2 = new PetsClinic(2, new Client("Daria"), new Pet("hamster", "Pushok"));
-        PetsClinic petsClinic3 = new PetsClinic(3, new Client("Galina"), new Pet("dog", "Dusya"));
-        arrayPetsClinicRegistration.add(petsClinic1);
-        arrayPetsClinicRegistration.add(petsClinic2);
-        arrayPetsClinicRegistration.add(petsClinic3);
+        Client client1 = new Client(1, new Person("Tatiana"), new Pet("cat", "Varya"));
+        Client client2 = new Client(2, new Person("Daria"), new Pet("hamster", "Pushok"));
+        Client client3 = new Client(3, new Person("Galina"), new Pet("dog", "Dusya"));
+        arrayPetsClinicRegistration.add(client1);
+        arrayPetsClinicRegistration.add(client2);
+        arrayPetsClinicRegistration.add(client3);
     }
 }

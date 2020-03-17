@@ -10,7 +10,7 @@ public class WorkClinic {
     public static void main(String[] args) throws IOException {
 
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        PetsClinic petsClinic = new PetsClinic();
+        PetClinic petClinic = new PetClinic();
         String exitFromClinic = "no";
         //petsClinic.readFromFile();
 
@@ -29,31 +29,31 @@ public class WorkClinic {
             int operation = Integer.parseInt(reader.readLine());
 
             switch (operation) {
-                case 1: petsClinic.addNewClient();
+                case 1: petClinic.addNewClient();
                     break;
-                case 2: petsClinic.findClientByName();
+                case 2: petClinic.findClientByName();
                     break;
-                case 3: petsClinic.findClientByPetName();
+                case 3: petClinic.findClientByPetName();
                     break;
-                case 4: petsClinic.findClientByCardNumber();
+                case 4: petClinic.findClientByCardNumber();
                     break;
-                case 5: petsClinic.deleteClient();
+                case 5: petClinic.deleteClient();
                     break;
-                case 6 : petsClinic.renameClient();
+                case 6 : petClinic.renameClient();
                     break;
-                case 7 : petsClinic.renamePet();
+                case 7 : petClinic.renamePet();
                     break;
-                case 8: petsClinic.viewAllClients();
+                case 8: petClinic.viewAllClients();
                     break;
                 case 9: exitFromClinic = "yes";
-                    petsClinic.writeInFile();
+                    petClinic.writeInFile();
                     break;
 
                     //test write in file
-                case 10: petsClinic.writeInFile();
+                case 10: petClinic.writeInFile();
                     break;
                     // test add new client
-                case 11: petsClinic.addTestClient();
+                case 11: petClinic.addTestClient();
                     break;
             }
         }
