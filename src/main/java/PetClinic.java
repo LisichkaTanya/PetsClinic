@@ -1,3 +1,4 @@
+import java.awt.event.ActionListener;
 import java.io.*;
 import java.util.*;
 
@@ -110,21 +111,7 @@ public class PetClinic implements Serializable {
         }
     }
 
-    // 9 case: Write registration list in file
-    public void writeInFile () throws IOException {
-        try {
-            FileOutputStream fos = new FileOutputStream("RegistrationClientsOfPetClinic.bin");
-            ObjectOutputStream oos = new ObjectOutputStream(fos);
-            //oos.writeInt(arrayPetsClinicRegistration.size());
-            for (Client client :arrayPetsClinicRegistration) {
-                oos.writeObject(client);
-            }
-            fos.close();
-        }
-        catch (IOException e){
-            e.printStackTrace();
-        }
-    }
+
 
     // Read registration list from file
     public void readFromFile () throws IOException {
@@ -163,4 +150,25 @@ public class PetClinic implements Serializable {
         arrayPetsClinicRegistration.add(client2);
         arrayPetsClinicRegistration.add(client3);
     }
+
+    public List<Client> getArrayPetsClinicRegistration() {
+        return arrayPetsClinicRegistration;
+    }
+
+//    public static void writeInFileTest () throws IOException {
+//        Client client = new Client(11, new Person("Tata"), new Pet("cat", "Dodo"));
+//        try {
+//            FileOutputStream fos = new FileOutputStream("RegistrationClientsOfPetClinic.bin");
+//            ObjectOutputStream oos = new ObjectOutputStream(fos);
+//            oos.writeObject(client);
+//            //oos.writeInt(arrayPetsClinicRegistration.size());
+////            for (Client client : petClinic.getArrayPetsClinicRegistration()) {
+////            oos.writeObject(client);
+////            }
+//            fos.close();
+//        }
+//        catch (IOException e){
+//            e.printStackTrace();
+//        }
+//    }
 }

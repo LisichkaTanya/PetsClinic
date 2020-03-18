@@ -1,4 +1,5 @@
 import java.io.*;
+import java.util.ArrayList;
 
 /**
  * @author LisichkaTanya
@@ -10,9 +11,9 @@ public class WorkClinic {
     public static void main(String[] args) throws IOException {
 
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        PetClinic petClinic = new PetClinic();
+        PetClinic petClinic;
+        petClinic = readFromFile();
         String exitFromClinic = "no";
-        //petsClinic.readFromFile();
 
         while (exitFromClinic.equals("no")) {
             System.out.println("Choose the operation. Enter the appropriate number: \n" +
@@ -46,16 +47,54 @@ public class WorkClinic {
                 case 8: petClinic.viewAllClients();
                     break;
                 case 9: exitFromClinic = "yes";
-                    petClinic.writeInFile();
+                    writeInFile(petClinic);
                     break;
 
                     //test write in file
-                case 10: petClinic.writeInFile();
+                case 10: readFromFile();
                     break;
                     // test add new client
                 case 11: petClinic.addTestClient();
                     break;
             }
         }
+    }
+    // 9 case: Write registration list in file
+    public static void writeInFile (PetClinic petClinic) throws IOException {
+        try {
+            FileOutputStream fos = new FileOutputStream("RegistrationClientsOfPetClinic.bin");
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+            oos.writeObject(petClinic);
+            //oos.writeInt(arrayPetsClinicRegistration.size());
+//            for (Client client : petClinic.getArrayPetsClinicRegistration()) {
+//            oos.writeObject(client);
+//            }
+            fos.close();
+        }
+        catch (IOException e){
+            e.printStackTrace();
+        }
+    }
+    // Read registration list from file
+    public static PetClinic readFromFile () throws IOException {
+        PetClinic petClinic = null;
+        try {
+            FileInputStream fis = new FileInputStream("RegistrationClientsOfPetClinic.bin");
+            ObjectInputStream ois = new ObjectInputStream(fis);
+//            int clientsCount = ois.readInt();
+//            for (int i =0; i < clientsCount; i++){
+//                List<PetsClinic> array = (ArrayList)ois.readObject();
+//            }
+            petClinic = (PetClinic) ois.readObject();
+            ois.close();
+        }
+
+        catch (IOException e){
+            e.printStackTrace();
+        }
+        catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return petClinic;
     }
 }
