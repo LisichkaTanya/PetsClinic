@@ -3,14 +3,14 @@ import java.io.*;
 /**
  * @author LisichkaTanya
  * @since 12.03.2020
- * This class include method main, point of enter program, read from file on start and write in file on end program
+ * This class include method main, point of enter program, read from file on start and write in file on the end program
  */
 public class WorkClinic {
     public static void main(String[] args) throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         PetClinic petClinic;
         petClinic = readFromFile();
-        
+
 
         String exitFromClinic = "no";
         while (exitFromClinic.equals("no")) {
@@ -74,7 +74,7 @@ public class WorkClinic {
      *  Read registration list from file on start program
      */
     public static PetClinic readFromFile () throws IOException {
-        PetClinic petClinic = null;
+        PetClinic petClinic = new PetClinic();
         try {
             FileInputStream fis = new FileInputStream("RegistrationClientsOfPetClinic.bin");
             ObjectInputStream ois = new ObjectInputStream(fis);
