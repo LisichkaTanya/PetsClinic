@@ -1,5 +1,9 @@
 import java.io.Serializable;
 
+/**
+ * This class includes variable  string name
+ * here are methods get, set, toString
+ */
 public class Person implements Serializable {
     private String fullName;
 

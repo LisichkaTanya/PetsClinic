@@ -1,5 +1,10 @@
 import java.io.Serializable;
 
+/**
+ * This class includes variables pet name and type
+ * here are methods get, set, toString
+ */
+
 public class Pet implements Serializable {
     private String petType;
     private String petName;

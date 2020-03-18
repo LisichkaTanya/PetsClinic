@@ -1,5 +1,9 @@
 import java.io.Serializable;
 
+/**
+ * This class includes variables Person, Pet and card number in Pet clinic
+ * here are methods get, set, toString
+ */
 public class Client implements Serializable {
     private Person person;
     private Pet pet;

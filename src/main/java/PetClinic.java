@@ -1,12 +1,18 @@
-import java.awt.event.ActionListener;
 import java.io.*;
 import java.util.*;
 
+/**
+ * This class include array  which collects persons and their pets and give the new client a card number
+ * here implemented all methods (add new client, find, rename client or his pet, delete client from list, view all list)
+ */
 public class PetClinic implements Serializable {
-
     List<Client> arrayPetsClinicRegistration = new ArrayList<>();
 
-    // This method read text from screen
+    /**
+     * This method to communicate via the screen
+     * @param input - String which tell to user what he need to do
+     * @return - will return string what was reading from screen
+     */
     public static String readFromScreen (String input) {
         Scanner scanner = new Scanner(System.in);
         System.out.println(input);
@@ -111,37 +117,13 @@ public class PetClinic implements Serializable {
         }
     }
 
-
-
-    // Read registration list from file
-    public void readFromFile () throws IOException {
-        try {
-            FileInputStream fis = new FileInputStream("RegistrationClientsOfPetClinic.bin");
-            ObjectInputStream ois = new ObjectInputStream(fis);
-//            int clientsCount = ois.readInt();
-//            for (int i =0; i < clientsCount; i++){
-//                List<PetsClinic> array = (ArrayList)ois.readObject();
-//            }
-            arrayPetsClinicRegistration = (ArrayList<Client>) ois.readObject();
-            ois.close();
-        }
-
-        catch (IOException e){
-            e.printStackTrace();
-        }
-        catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-    }
-
     @Override
     public String toString() {
-        return "PetClinic{" +
-                "arrayPetsClinicRegistration=" + arrayPetsClinicRegistration +
-                '}';
+        return "PetClinic \n" +
+                arrayPetsClinicRegistration;
     }
 
-    // test
+    // 100 case: add clients to test
     public void addTestClient (){
         Client client1 = new Client(1, new Person("Tatiana"), new Pet("cat", "Varya"));
         Client client2 = new Client(2, new Person("Daria"), new Pet("hamster", "Pushok"));
@@ -154,21 +136,4 @@ public class PetClinic implements Serializable {
     public List<Client> getArrayPetsClinicRegistration() {
         return arrayPetsClinicRegistration;
     }
-
-//    public static void writeInFileTest () throws IOException {
-//        Client client = new Client(11, new Person("Tata"), new Pet("cat", "Dodo"));
-//        try {
-//            FileOutputStream fos = new FileOutputStream("RegistrationClientsOfPetClinic.bin");
-//            ObjectOutputStream oos = new ObjectOutputStream(fos);
-//            oos.writeObject(client);
-//            //oos.writeInt(arrayPetsClinicRegistration.size());
-////            for (Client client : petClinic.getArrayPetsClinicRegistration()) {
-////            oos.writeObject(client);
-////            }
-//            fos.close();
-//        }
-//        catch (IOException e){
-//            e.printStackTrace();
-//        }
-//    }
 }

@@ -1,20 +1,18 @@
 import java.io.*;
-import java.util.ArrayList;
 
 /**
  * @author LisichkaTanya
  * @since 12.03.2020
- * This class include method main, point of enter program
- * Here are: start work on the clinic; choose operations to do
+ * This class include method main, point of enter program, read from file on start and write in file on end program
  */
 public class WorkClinic {
     public static void main(String[] args) throws IOException {
-
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         PetClinic petClinic;
         petClinic = readFromFile();
-        String exitFromClinic = "no";
+        
 
+        String exitFromClinic = "no";
         while (exitFromClinic.equals("no")) {
             System.out.println("Choose the operation. Enter the appropriate number: \n" +
                     "1 - add new client \n" +
@@ -50,45 +48,39 @@ public class WorkClinic {
                     writeInFile(petClinic);
                     break;
 
-                    //test write in file
-                case 10: readFromFile();
-                    break;
                     // test add new client
-                case 11: petClinic.addTestClient();
+                case 100: petClinic.addTestClient();
                     break;
             }
         }
     }
-    // 9 case: Write registration list in file
+
+    /**
+     * 9 case: Write registration list in file before exit
+     */
     public static void writeInFile (PetClinic petClinic) throws IOException {
         try {
             FileOutputStream fos = new FileOutputStream("RegistrationClientsOfPetClinic.bin");
             ObjectOutputStream oos = new ObjectOutputStream(fos);
             oos.writeObject(petClinic);
-            //oos.writeInt(arrayPetsClinicRegistration.size());
-//            for (Client client : petClinic.getArrayPetsClinicRegistration()) {
-//            oos.writeObject(client);
-//            }
             fos.close();
         }
         catch (IOException e){
             e.printStackTrace();
         }
     }
-    // Read registration list from file
+
+    /**
+     *  Read registration list from file on start program
+     */
     public static PetClinic readFromFile () throws IOException {
         PetClinic petClinic = null;
         try {
             FileInputStream fis = new FileInputStream("RegistrationClientsOfPetClinic.bin");
             ObjectInputStream ois = new ObjectInputStream(fis);
-//            int clientsCount = ois.readInt();
-//            for (int i =0; i < clientsCount; i++){
-//                List<PetsClinic> array = (ArrayList)ois.readObject();
-//            }
             petClinic = (PetClinic) ois.readObject();
             ois.close();
         }
-
         catch (IOException e){
             e.printStackTrace();
         }
