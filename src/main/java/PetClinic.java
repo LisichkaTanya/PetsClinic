@@ -29,12 +29,19 @@ public class PetClinic implements Serializable {
         }
         Client client = new Client (cardNumber, new Person(readFromScreen("Enter full name of client:")),
                 new Pet(readFromScreen("Enter type of pet:"), readFromScreen("Enter  pet name:")));
+        if (arrayPetsClinicRegistration.size() == 0) {
+            arrayPetsClinicRegistration.add(client);
+            System.out.println("Client was added");
+            return;
+        }
         for (int i = 0; i < arrayPetsClinicRegistration.size(); i++) {
             if (client.getPerson().getFullName().equals(arrayPetsClinicRegistration.get(i).getPerson().getFullName())) {
                 System.out.println("This person is already in the clinic's list " + arrayPetsClinicRegistration.get(i));
                 return;
             }
-            arrayPetsClinicRegistration.add (client);
+            else {
+                arrayPetsClinicRegistration.add(client);
+            }
         }
         System.out.println("Client was added");
 
