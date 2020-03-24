@@ -16,6 +16,8 @@ public class Client implements Serializable {
         this.cardNumber = cardNumber;
     }
 
+    public Client(){}
+
     public Person getPerson() {
         return person;
     }

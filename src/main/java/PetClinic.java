@@ -41,10 +41,10 @@ public class PetClinic implements Serializable {
             }
             else {
                 arrayPetsClinicRegistration.add(client);
+                System.out.println("Client was added");
+                return;
             }
         }
-        System.out.println("Client was added");
-
     }
 
     // 2 case:

@@ -13,6 +13,7 @@ public class Pet implements Serializable {
         this.petType = petType;
         this.petName = petName;
     }
+     public Pet () {}
 
     public String getPetType() {
         return petType;

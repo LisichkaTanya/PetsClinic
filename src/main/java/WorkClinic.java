@@ -1,15 +1,23 @@
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import java.io.*;
+import java.util.Scanner;
 
 /**
  * @author LisichkaTanya
- * @since 12.03.2020
+ * @since 12.03.2020 till 24.03.2020
  * This class include method main, point of enter program, read from file on start and write in file on the end program
  */
 public class WorkClinic {
     public static void main(String[] args) throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        PetClinic petClinic;
-        petClinic = readFromFile();
+        PetClinic petClinic = new PetClinic();
+        try {
+            petClinic = readFromFileJson();
+        }
+        catch (Exception e){
+            System.out.println("Pet Clinic is empty  " + e);
+        }
 
 
         String exitFromClinic = "no";
@@ -45,7 +53,11 @@ public class WorkClinic {
                 case 8: petClinic.viewAllClients();
                     break;
                 case 9: exitFromClinic = "yes";
-                    writeInFile(petClinic);
+                    writeInFileJson(petClinic);
+                    break;
+                case 10: writeInFileJson(petClinic);
+                    break;
+                case 11: readFromFileJson();
                     break;
 
                     // test add new client
@@ -58,35 +70,60 @@ public class WorkClinic {
     /**
      * 9 case: Write registration list in file before exit
      */
-    public static void writeInFile (PetClinic petClinic) throws IOException {
-        try {
-            FileOutputStream fos = new FileOutputStream("RegistrationClientsOfPetClinic.bin");
-            ObjectOutputStream oos = new ObjectOutputStream(fos);
-            oos.writeObject(petClinic);
-            fos.close();
-        }
-        catch (IOException e){
-            e.printStackTrace();
-        }
+    public static void writeInFileJson (PetClinic petClinic) throws IOException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        String result = objectMapper.writeValueAsString(petClinic);
+        File file = new File("RegistrationClientsOfPetClinic.bin");
+        PrintWriter printWriter = new PrintWriter(file);
+        printWriter.println(result);
+        printWriter.close();
     }
 
     /**
      *  Read registration list from file on start program
+     * @return list with all clients previously entered
      */
-    public static PetClinic readFromFile () throws IOException {
-        PetClinic petClinic = new PetClinic();
-        try {
-            FileInputStream fis = new FileInputStream("RegistrationClientsOfPetClinic.bin");
-            ObjectInputStream ois = new ObjectInputStream(fis);
-            petClinic = (PetClinic) ois.readObject();
-            ois.close();
+    public static PetClinic readFromFileJson () throws IOException {
+        PetClinic petClinic;
+        Scanner scanner = new Scanner(new File("RegistrationClientsOfPetClinic.bin"));
+        String result = null;
+        while(scanner.hasNext()){
+            result = scanner.nextLine();
         }
-        catch (IOException e){
-            e.printStackTrace();
-        }
-        catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
+        ObjectMapper objectMapper = new ObjectMapper();
+        petClinic = (PetClinic) objectMapper.readValue(result, PetClinic.class);
         return petClinic;
     }
 }
+
+//    public static void writeInFile (PetClinic petClinic) throws IOException {
+//        try {
+//            FileOutputStream fos = new FileOutputStream("RegistrationClientsOfPetClinic.bin");
+//            ObjectOutputStream oos = new ObjectOutputStream(fos);
+//            oos.writeObject(petClinic);
+//            fos.close();
+//        }
+//        catch (IOException e){
+//            e.printStackTrace();
+//        }
+//    }
+//
+//    /**
+//     *  Read registration list from file on start program
+//     */
+//    public static PetClinic readFromFile () throws IOException {
+//        PetClinic petClinic = new PetClinic();
+//        try {
+//            FileInputStream fis = new FileInputStream("RegistrationClientsOfPetClinic.bin");
+//            ObjectInputStream ois = new ObjectInputStream(fis);
+//            petClinic = (PetClinic) ois.readObject();
+//            ois.close();
+//        }
+//        catch (IOException e){
+//            e.printStackTrace();
+//        }
+//        catch (ClassNotFoundException e) {
+//            e.printStackTrace();
+//        }
+//        return petClinic;
+//    }

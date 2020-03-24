@@ -11,6 +11,8 @@ public class Person implements Serializable {
         this.fullName = fullName;
     }
 
+    public Person () {}
+
     public String getFullName() {
         return fullName;
     }
