@@ -68,20 +68,19 @@ public class WorkClinic {
     }
 
     /**
-     * 9 case: Write registration list in file before exit
+     * 9 case: Write object PetClinic with registration list in file before exit
      */
     public static void writeInFileJson (PetClinic petClinic) throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
         String result = objectMapper.writeValueAsString(petClinic);
-        File file = new File("RegistrationClientsOfPetClinic.bin");
-        PrintWriter printWriter = new PrintWriter(file);
+        PrintWriter printWriter = new PrintWriter(new File("RegistrationClientsOfPetClinic.bin"));
         printWriter.println(result);
         printWriter.close();
     }
 
     /**
-     *  Read registration list from file on start program
-     * @return list with all clients previously entered
+     *  Read object PetClinic with registration list from file on start program
+     * @return object PetClinic with list with all clients previously entered
      */
     public static PetClinic readFromFileJson () throws IOException {
         PetClinic petClinic;
@@ -91,11 +90,16 @@ public class WorkClinic {
             result = scanner.nextLine();
         }
         ObjectMapper objectMapper = new ObjectMapper();
-        petClinic = (PetClinic) objectMapper.readValue(result, PetClinic.class);
+        petClinic = objectMapper.readValue(result, PetClinic.class);
         return petClinic;
     }
 }
 
+//    /**
+//     *  This method write object with registration list in file
+//     *  @return object with list with all clients previously entered
+//    */
+//
 //    public static void writeInFile (PetClinic petClinic) throws IOException {
 //        try {
 //            FileOutputStream fos = new FileOutputStream("RegistrationClientsOfPetClinic.bin");
