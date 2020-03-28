@@ -85,12 +85,10 @@ public class WorkClinic {
     public static PetClinic readFromFileJson () throws IOException {
         PetClinic petClinic;
         Scanner scanner = new Scanner(new File("RegistrationClientsOfPetClinic.bin"));
-        String result = null;
-        while(scanner.hasNext()){
-            result = scanner.nextLine();
-        }
+        String result = scanner.nextLine();
         ObjectMapper objectMapper = new ObjectMapper();
         petClinic = objectMapper.readValue(result, PetClinic.class);
+        scanner.close();
         return petClinic;
     }
 }

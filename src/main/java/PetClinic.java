@@ -16,7 +16,9 @@ public class PetClinic implements Serializable {
     public static String readFromScreen (String input) {
         Scanner scanner = new Scanner(System.in);
         System.out.println(input);
-        return scanner.nextLine();
+        String read = scanner.nextLine();
+        scanner.close();
+        return read;
     }
 
     // 1 case:
