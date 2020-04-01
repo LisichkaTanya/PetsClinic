@@ -1,11 +1,11 @@
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.*;
-import java.util.Scanner;
+import java.util.*;
 
 /**
  * @author LisichkaTanya
- * @since 12.03.2020 till 24.03.2020
+ * @since 12.03.2020
  * This class include method main, point of enter program, read from file on start and write in file on the end program
  */
 public class WorkClinic {
@@ -36,19 +36,23 @@ public class WorkClinic {
             int operation = Integer.parseInt(reader.readLine());
 
             switch (operation) {
-                case 1: petClinic.addNewClient();
+                case 1: petClinic.addNewClient( readFromScreen("Enter full name of client:"),
+                                                readFromScreen("Enter type of pet:"),
+                                                readFromScreen("Enter  pet name:"));
                     break;
-                case 2: petClinic.findClientByName();
+                case 2: petClinic.findClientByName(readFromScreen("Enter the name you are looking for:"));
                     break;
-                case 3: petClinic.findClientByPetName();
+                case 3: petClinic.findClientByPetName(readFromScreen("Enter the pet name you are looking for:"));
                     break;
-                case 4: petClinic.findClientByCardNumber();
+                case 4: petClinic.findClientByCardNumber(readFromScreen("Enter the card number you are looking for:"));
                     break;
-                case 5: petClinic.deleteClient();
+                case 5: petClinic.deleteClient(readFromScreen("Enter name of client which you want to delete:"));
                     break;
-                case 6 : petClinic.renameClient();
+                case 6 : petClinic.renameClient(readFromScreen("Enter the name you are looking for rename:"),
+                                                readFromScreen("Enter new name for client:"));
                     break;
-                case 7 : petClinic.renamePet();
+                case 7 : petClinic.renamePet(readFromScreen("Enter the pet name you are looking for rename:"),
+                                             readFromScreen("Enter new pet name:"));
                     break;
                 case 8: petClinic.viewAllClients();
                     break;
@@ -59,12 +63,20 @@ public class WorkClinic {
                     break;
                 case 11: readFromFileJson();
                     break;
-
-                    // test add new client
-                case 100: petClinic.addTestClient();
-                    break;
             }
         }
+    }
+
+    /**
+     * This method to communicate via the screen
+     * @param input - String which tell to user what he need to do
+     * @return - will return string what was reading from screen
+     */
+    public static String readFromScreen (String input) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println(input);
+        String read = scanner.nextLine();
+        return read;
     }
 
     /**

@@ -23,7 +23,6 @@ public class Person implements Serializable {
 
     @Override
     public String toString() {
-        return "Client's name is '" +
-                fullName + '\'';
+        return '\'' + fullName + '\'';
     }
 }

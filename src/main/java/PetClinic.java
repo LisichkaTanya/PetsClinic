@@ -7,6 +7,7 @@ import java.util.*;
  */
 public class PetClinic implements Serializable {
     List<Client> arrayPetsClinicRegistration = new ArrayList<>();
+    private Object Client;
 
     /**
      * This method to communicate via the screen
@@ -17,23 +18,22 @@ public class PetClinic implements Serializable {
         Scanner scanner = new Scanner(System.in);
         System.out.println(input);
         String read = scanner.nextLine();
-        scanner.close();
         return read;
     }
 
     // 1 case:
-    public void addNewClient (){
+    public void addNewClient (String personName, String petType, String petName){
         int cardNumber = arrayPetsClinicRegistration.size() + 1;
         for (int i = 0; i < arrayPetsClinicRegistration.size(); i++){
             if (arrayPetsClinicRegistration.get(i).getCardNumber() >= arrayPetsClinicRegistration.size()){
                 cardNumber = arrayPetsClinicRegistration.get(i).getCardNumber() + 1;
             }
         }
-        Client client = new Client (cardNumber, new Person(readFromScreen("Enter full name of client:")),
-                new Pet(readFromScreen("Enter type of pet:"), readFromScreen("Enter  pet name:")));
+        Client client = new Client (cardNumber, new Person(personName),
+                new Pet(petType, petName));
         if (arrayPetsClinicRegistration.size() == 0) {
             arrayPetsClinicRegistration.add(client);
-            System.out.println("Client was added");
+            System.out.println("Client was added. " + client);
             return;
         }
         for (int i = 0; i < arrayPetsClinicRegistration.size(); i++) {
@@ -43,51 +43,56 @@ public class PetClinic implements Serializable {
             }
             else {
                 arrayPetsClinicRegistration.add(client);
-                System.out.println("Client was added");
+                System.out.println("Client was added. " + client);
                 return;
             }
         }
     }
 
     // 2 case:
-    public void findClientByName (){
-        String findName = readFromScreen("Enter the name you are looking for:");
+    public Client findClientByName (String findName){
+        Client findClient = null;
         for (int i = 0; i < arrayPetsClinicRegistration.size(); i++) {
             if (findName.equals(arrayPetsClinicRegistration.get(i).getPerson().getFullName())) {
                 System.out.println("Find " + arrayPetsClinicRegistration.get(i));
-                return;
+                findClient = arrayPetsClinicRegistration.get(i);
+                return findClient;
             }
         }
         System.out.println(findName + " is not found.");
+        return findClient;
     }
 
     // 3 case:
-    public void findClientByPetName (){
-        String findPetName = readFromScreen("Enter the pet name you are looking for:");
+    public Client findClientByPetName (String findPetName){
+        Client findClient = null;
         for (int i = 0; i < arrayPetsClinicRegistration.size(); i++) {
             if (findPetName.equals(arrayPetsClinicRegistration.get(i).getPet().getPetName())) {
                 System.out.println("Find " + arrayPetsClinicRegistration.get(i));
-                return;
+                findClient = arrayPetsClinicRegistration.get(i);
+                return findClient;
             }
         }
         System.out.println(findPetName + " is not found.");
+        return findClient;
     }
 
     // 4 case:
-    public void findClientByCardNumber (){
-        int findCardNumber = Integer.parseInt(readFromScreen("Enter the card number you are looking for:"));
+    public Client findClientByCardNumber (String findCardNumber){
+        Client findClient = null;
         for (int i = 0; i < arrayPetsClinicRegistration.size(); i++) {
-            if (findCardNumber == (arrayPetsClinicRegistration.get(i).getCardNumber())) {
+            if (Integer.parseInt(findCardNumber) == (arrayPetsClinicRegistration.get(i).getCardNumber())) {
                 System.out.println("Find " + arrayPetsClinicRegistration.get(i));
-                return;
+                findClient = arrayPetsClinicRegistration.get(i);
+                return findClient;
             }
         }
         System.out.println(findCardNumber + " is not found.");
+        return findClient;
     }
 
     // 5 case:
-    public void deleteClient (){
-        String deleteClientByName = readFromScreen("Enter name of client which you want to delete:");
+    public void deleteClient (String deleteClientByName){
         for (int i = 0; i < arrayPetsClinicRegistration.size(); i++) {
             if (deleteClientByName.equals(arrayPetsClinicRegistration.get(i).getPerson().getFullName())) {
                 arrayPetsClinicRegistration.remove(i);
@@ -99,12 +104,11 @@ public class PetClinic implements Serializable {
     }
 
     // 6 case:
-    public void renameClient (){
-        String findName = readFromScreen("Enter the name you are looking for rename:");
+    public void renameClient (String findName, String newName){
         for (int i = 0; i < arrayPetsClinicRegistration.size(); i++) {
             if (findName.equals(arrayPetsClinicRegistration.get(i).getPerson().getFullName())) {
                 System.out.println("Successful find. " + arrayPetsClinicRegistration.get(i));
-                arrayPetsClinicRegistration.get(i).getPerson().setFullName(readFromScreen("Enter new name for client:"));
+                arrayPetsClinicRegistration.get(i).getPerson().setFullName(newName);
                 System.out.println("Successful rename " + arrayPetsClinicRegistration.get(i));
                 return;
             }
@@ -113,12 +117,11 @@ public class PetClinic implements Serializable {
     }
 
     // 7 case:
-    public void renamePet (){
-        String findPetName = readFromScreen("Enter the pet name you are looking for rename:");
+    public void renamePet (String findPetName, String newPetName){
         for (int i = 0; i < arrayPetsClinicRegistration.size(); i++) {
             if (findPetName.equals(arrayPetsClinicRegistration.get(i).getPet().getPetName())) {
                 System.out.println("Successful find. " + arrayPetsClinicRegistration.get(i));
-                arrayPetsClinicRegistration.get(i).getPet().setPetName(readFromScreen("Enter new pet name:"));
+                arrayPetsClinicRegistration.get(i).getPet().setPetName(newPetName);
                 System.out.println("Successful rename pet " + arrayPetsClinicRegistration.get(i));
                 return;
             }
@@ -142,16 +145,6 @@ public class PetClinic implements Serializable {
     public String toString() {
         return "PetClinic \n" +
                 arrayPetsClinicRegistration;
-    }
-
-    // 100 case: add clients to test
-    public void addTestClient (){
-        Client client1 = new Client(1, new Person("Tatiana"), new Pet("cat", "Varya"));
-        Client client2 = new Client(2, new Person("Daria"), new Pet("hamster", "Pushok"));
-        Client client3 = new Client(3, new Person("Galina"), new Pet("dog", "Dusya"));
-        arrayPetsClinicRegistration.add(client1);
-        arrayPetsClinicRegistration.add(client2);
-        arrayPetsClinicRegistration.add(client3);
     }
 
     public List<Client> getArrayPetsClinicRegistration() {

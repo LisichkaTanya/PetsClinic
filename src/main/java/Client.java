@@ -45,7 +45,7 @@ public class Client implements Serializable {
     @Override
     public String toString() {
         return "Card number: " + getCardNumber() + ". " +
-                "Client's name is '" + person + '\'' +
+                "Client's name is " + person +
                 ". Pet: " + pet;
     }
 }
