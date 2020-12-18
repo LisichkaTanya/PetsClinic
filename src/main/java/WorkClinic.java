@@ -75,8 +75,7 @@ public class WorkClinic {
     public static String readFromScreen (String input) {
         Scanner scanner = new Scanner(System.in);
         System.out.println(input);
-        String read = scanner.nextLine();
-        return read;
+        return scanner.nextLine();
     }
 
     /**
